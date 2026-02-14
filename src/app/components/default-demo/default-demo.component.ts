@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { DateTime } from 'luxon';
 
 @Component({
   imports: [
@@ -21,7 +22,10 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class DefaultDemoComponent {
   private _timezoneService = inject(TimezoneService);
-  public defaultDate = new Date('2025-12-31T23:30:00Z');
+  private _defaultDate = '2025-12-31T23:30:00Z';
+  public currentDate = DateTime.fromISO(this._defaultDate, {
+    zone: this._timezoneService.currentTimezone(),
+  });
 
   currentZone = computed(() => this._timezoneService.currentTimezone());
 
@@ -30,6 +34,8 @@ export class DefaultDemoComponent {
   }
 
   resetValue() {
-    this.defaultDate = new Date('2025-12-31T23:30:00Z');
+    this.currentDate = DateTime.fromISO(this._defaultDate, {
+      zone: this._timezoneService.currentTimezone(),
+    });
   }
 }

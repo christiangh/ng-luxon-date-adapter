@@ -9,7 +9,10 @@ export class CustomDateAdapter extends NativeDateAdapter {
   constructor() {
     super();
 
-    effect(() => this.setLocale(this.timezoneService.currentTimezone()));
+    effect(() => {
+      this.setLocale('es-ES');
+      return this.timezoneService.currentTimezone();
+    });
   }
 
   override createDate(year: number, month: number, date: number): Date {

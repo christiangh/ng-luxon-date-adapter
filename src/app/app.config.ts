@@ -5,16 +5,18 @@ import {
   DateAdapter,
   MAT_DATE_FORMATS,
   MAT_DATE_LOCALE,
-  MAT_NATIVE_DATE_FORMATS,
+  // MAT_NATIVE_DATE_FORMATS,
 } from '@angular/material/core';
-import { CustomDateAdapter } from './adapters/custom.date-adapter';
+// import { CustomDateAdapter } from './adapters/custom.date-adapter';
+import { CustomLuxonDateAdapter } from './adapters/custom-luxon.date-adapter';
+import { MAT_LUXON_DATE_FORMATS } from '@angular/material-luxon-adapter';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    { provide: DateAdapter, useClass: CustomDateAdapter },
+    { provide: DateAdapter, useClass: CustomLuxonDateAdapter },
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
-    { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_LUXON_DATE_FORMATS },
   ],
 };
