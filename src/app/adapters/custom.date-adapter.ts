@@ -22,9 +22,9 @@ export class CustomDateAdapter extends NativeDateAdapter {
   override parse(value: any): Date | null {
     if (typeof value === 'string') {
       const d = new Date(value);
-      return this.toCanary(d);
+      return this.toCurrentTimezone(d);
     }
-    return value ? this.toCanary(value) : null;
+    return value ? this.toCurrentTimezone(value) : null;
   }
 
   override format(date: Date, displayFormat: any): string {
@@ -36,7 +36,7 @@ export class CustomDateAdapter extends NativeDateAdapter {
     }).format(date);
   }
 
-  private toCanary(date: Date): Date {
+  private toCurrentTimezone(date: Date): Date {
     const formatter = new Intl.DateTimeFormat('es-ES', {
       timeZone: this.timezoneService.currentTimezone(),
       hour12: false,
